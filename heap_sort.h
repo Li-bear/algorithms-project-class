@@ -13,19 +13,20 @@ void heap_sort(std::vector <int> &vec)
 {
     /// @brief fix heap from the back, reduce size and swap largest
     /// number to the end and fix heap from the back again.
+    /// Big(O) = nlogn
     /// @param vec 
 
     int h = vec.size();
     // building heap
 
-    for (int i = vec.size() - 1; i >=0; i--)
+    for (int i = vec.size() - 1; i >=0; i--) // O(n)
     {
         fix_heap(vec, i, h);
     }
 
     for (int repetitions  = 0; repetitions < vec.size(); repetitions++){
-        largest_2back(vec, h);
-        fix_heap(vec, 0, h);
+        largest_2back(vec, h); // o(1)
+        fix_heap(vec, 0, h); // o(log n)
     }
 }
 
