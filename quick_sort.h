@@ -12,25 +12,52 @@ int partition_last(std::vector <int> &vec, int left, int right)
     int pivot = vec[left];
     int leftBigger = left + 1;
     int rightSmaller = right;
-    int count_smaller = 0;
+    int count_smaller = left + 1;
     
     while (leftBigger < rightSmaller){
-        if (vec[rightSmaller] <= pivot)
+        /*
+        if (vec[leftBigger] < pivot)
         {
-            if (vec[leftBigger] <= pivot)
-                leftBigger++;
-            else if (vec[leftBigger] >= vec[rightSmaller])
+            std::swap(vec[leftBigger], vec[count_smaller]);
+            count_smaller++;
+        }
+        leftBigger++;
+        */
+        if (vec[leftBigger] > pivot && vec[rightSmaller] < pivot)
+        {
+            std::swap(vec[leftBigger], vec[rightSmaller]);
+            rightSmaller--;
+            //leftBigger++;
+        }
+        
+        else if (vec[rightSmaller] > pivot)
+            rightSmaller--;
+        
+        else if (vec[leftBigger] <= pivot)
+            leftBigger++;
+        /*
+        else
+        {
+            rightSmaller--;
+        }
+        
+        if (vec[rightSmaller] < pivot)
+        {
+            if (vec[leftBigger] > vec[rightSmaller])
             {
                 std::swap(vec[leftBigger], vec[rightSmaller]);
-                leftBigger++;
+                rightSmaller--;
             }
+            leftBigger++;
             count_smaller++;
         }
         else
             rightSmaller--;
+        */
     }
-    std::swap(vec[left], vec[leftBigger + 1]);
-    return leftBigger + 1;   
+
+    std::swap(vec[left], vec[leftBigger]);
+    return leftBigger;   
 }
 
 void print(std::vector <int> &vec)
@@ -51,12 +78,13 @@ void quick_sort(std::vector <int> &vec){
 }
 
 void quick_part(std::vector <int> &vec, int left, int right){
-    int pivot = partition_last(vec, left, right);
     // TODO: FIX CONDITION
     if (left < right){
+        int pivot = partition_last(vec, left, right);
         quick_part(vec, left, pivot - 1);
-        quick_part(vec, pivot + 1, right);
-        print(vec);
+        // TODO: something weird happen when left part is called
+        //quick_part(vec, pivot + 1, right);
+        // print(vec);
         //pivot = partition_last(vec, left, right);
     }
 }
