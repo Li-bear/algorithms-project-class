@@ -15,7 +15,7 @@ int partition_last(std::vector <int> &vec, int left, int right)
     int count_smaller = left + 1;
     
     while (leftBigger <= rightSmaller){
-        if (vec[leftBigger] > pivot && vec[rightSmaller] < pivot)
+        if (vec[leftBigger] > pivot && vec[rightSmaller] <= pivot)
         {
             std::swap(vec[leftBigger], vec[rightSmaller]);
             //rightSmaller--;

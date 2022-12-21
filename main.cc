@@ -7,9 +7,10 @@
 #include "heap_sort.h"
 #include "merge_sort_2.h"
 #include "quick_sort.h"
+#include <fstream>
 #include <vector>
 
-constexpr int step = 100;
+constexpr int step = 50;
 constexpr int maxlen = 1000; // 10000
 constexpr int times = 100;
 
@@ -33,7 +34,9 @@ int main() {
     //std::mt19937 gen(rd());
     // I have to change the seed bc my laptot was producing the same value
     std::mt19937 gen(std::chrono::high_resolution_clock::now().time_since_epoch().count());
-    std::cout << "Len" << "\tInsertion" << "\tHeap sort" << "\tMerge sort"<<std::endl;
+    std::ofstream file;
+    file.open("results_small.txt");
+    file << "Len" << "\tInsertion" << "\tHeap sort" << "\tMerge sort"<< "\tQuick sort" << std::endl;
     
     for (int len = step ; len < maxlen ; len += step) {
         nanoseconds ins(0);
@@ -45,7 +48,8 @@ int main() {
         std::vector <int> original(len);
         // full original vector with values from 0 to its length
         for (int i = 0 ; i < len ; i++) {
-            original.push_back(i);
+            //original.push_back(i);
+            original[i] = i;
         }
 
         std::vector <int> vec(len);
@@ -57,16 +61,16 @@ int main() {
 
             ins += timeit(original, vec, &insert_sort);
             heap += timeit(original, vec, &heap_sort);
-            merge_t += timeit(original, vec, &merge_sort);
             quick_t += timeit(original, vec, &quick_sort);
+            merge_t += timeit(original, vec, &merge_sort);
         }
 
-        std::cout
+        file
             << len << "\t"
             << ins.count() / times << "\t"
             << heap.count() / times << "\t"
             << merge_t.count() / times << "\t"
-            << quick_t.count() / times << "\t"
+            << quick_t.count() / times
             << std::endl;
     }
     return 0;
