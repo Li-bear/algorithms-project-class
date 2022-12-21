@@ -29,6 +29,7 @@ void divide_vector(std::vector <int> &vec, int index_begin, int index_end, std::
     if (index_begin + 1 < index_end )
     {
         int index_mid = (index_end - index_begin) / 2;
+        //std::cout << index_begin << " " << index_mid << " " <<index_end << std::endl;
         divide_vector(vec, index_begin, index_begin + index_mid, temp);
         divide_vector(vec, index_begin + index_mid , index_end, temp);
         merge(vec, index_begin, index_begin + index_mid, index_end, temp);
@@ -50,7 +51,7 @@ void merge(std::vector <int> &vec, int index_left, int index_mid, int index_righ
             index_m++;
             
         }
-        else if (vec[index_l] <= vec[index_m])
+        else
         {
             temp[index_temp] = vec[index_l];
             index_l++;
@@ -72,7 +73,7 @@ void merge(std::vector <int> &vec, int index_left, int index_mid, int index_righ
         index_m++;
     }
 
-    for (int i= 0; i < index_right; i++)
+    for (int i= index_left; i < index_right; i++)
     {
         vec[i] = temp[i];
     }

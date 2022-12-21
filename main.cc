@@ -6,10 +6,11 @@
 #include "insert.h"
 #include "heap_sort.h"
 #include "merge_sort_2.h"
+#include "quick_sort.h"
 #include <vector>
 
 constexpr int step = 100;
-constexpr int maxlen = 1100; // 10000
+constexpr int maxlen = 1000; // 10000
 constexpr int times = 100;
 
 using std::chrono::nanoseconds;
@@ -38,6 +39,7 @@ int main() {
         nanoseconds ins(0);
         nanoseconds heap(0);
         nanoseconds merge_t(0);
+        nanoseconds quick_t(0);
 
 
         std::vector <int> original(len);
@@ -56,6 +58,7 @@ int main() {
             ins += timeit(original, vec, &insert_sort);
             heap += timeit(original, vec, &heap_sort);
             merge_t += timeit(original, vec, &merge_sort);
+            quick_t += timeit(original, vec, &quick_sort);
         }
 
         std::cout
@@ -63,6 +66,7 @@ int main() {
             << ins.count() / times << "\t"
             << heap.count() / times << "\t"
             << merge_t.count() / times << "\t"
+            << quick_t.count() / times << "\t"
             << std::endl;
     }
     return 0;

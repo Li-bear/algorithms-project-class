@@ -8,7 +8,6 @@ void insert_sort(std::vector <int> &vec){
         int val = vec[i];
         int cur = i;
         while ( (cur > 0) && vec[cur - 1] > val ) {
-            /* p(arr, len); */
             vec[cur] = vec[cur - 1];
             cur--;
         }
