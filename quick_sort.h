@@ -14,50 +14,23 @@ int partition_last(std::vector <int> &vec, int left, int right)
     int rightSmaller = right;
     int count_smaller = left + 1;
     
-    while (leftBigger < rightSmaller){
-        /*
-        if (vec[leftBigger] < pivot)
-        {
-            std::swap(vec[leftBigger], vec[count_smaller]);
-            count_smaller++;
-        }
-        leftBigger++;
-        */
+    while (leftBigger <= rightSmaller){
         if (vec[leftBigger] > pivot && vec[rightSmaller] < pivot)
         {
             std::swap(vec[leftBigger], vec[rightSmaller]);
-            rightSmaller--;
+            //rightSmaller--;
             //leftBigger++;
         }
         
-        else if (vec[rightSmaller] > pivot)
+        if (vec[rightSmaller] > pivot)
             rightSmaller--;
         
-        else if (vec[leftBigger] <= pivot)
+        if (vec[leftBigger] <= pivot)
             leftBigger++;
-        /*
-        else
-        {
-            rightSmaller--;
-        }
-        
-        if (vec[rightSmaller] < pivot)
-        {
-            if (vec[leftBigger] > vec[rightSmaller])
-            {
-                std::swap(vec[leftBigger], vec[rightSmaller]);
-                rightSmaller--;
-            }
-            leftBigger++;
-            count_smaller++;
-        }
-        else
-            rightSmaller--;
-        */
     }
 
-    std::swap(vec[left], vec[leftBigger]);
-    return leftBigger;   
+    std::swap(vec[left], vec[rightSmaller]);
+    return rightSmaller;   
 }
 
 void print(std::vector <int> &vec)
@@ -83,7 +56,7 @@ void quick_part(std::vector <int> &vec, int left, int right){
         int pivot = partition_last(vec, left, right);
         quick_part(vec, left, pivot - 1);
         // TODO: something weird happen when left part is called
-        //quick_part(vec, pivot + 1, right);
+        quick_part(vec, pivot + 1, right);
         // print(vec);
         //pivot = partition_last(vec, left, right);
     }
