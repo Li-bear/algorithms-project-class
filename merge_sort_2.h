@@ -73,7 +73,7 @@ void merge(std::vector <int> &vec, int index_left, int index_mid, int index_righ
         index_m++;
     }
 
-    for (int i= index_left; i < index_right; i++)
+    for (int i = index_left; i < index_right; i++)
     {
         vec[i] = temp[i];
     }
